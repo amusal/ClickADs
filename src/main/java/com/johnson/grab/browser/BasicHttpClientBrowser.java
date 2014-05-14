@@ -15,18 +15,25 @@
  */
 package com.johnson.grab.browser;
 
+import com.johnson.grab.Browsable;
+import com.johnson.grab.Closable;
+import org.apache.http.HttpHost;
 import org.apache.http.client.HttpClient;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/14
- * Time: 11:48
+ * Date: 2014/04/03
+ * Time: 11:53
  */
-public class HttpClientFactory {
+public abstract class BasicHttpClientBrowser implements Browsable<Object> {
 
-    public static HttpClient getHttpClient() {
-        return HttpClientHolder.getClient();
+    private HttpClient client;
+
+    private HttpHost proxy;
+
+    public BasicHttpClientBrowser(HttpClient client) {
+        this.client = client;
     }
 }

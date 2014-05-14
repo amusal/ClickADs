@@ -13,20 +13,26 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab.browser;
+package com.johnson.grab;
 
-import org.apache.http.client.HttpClient;
+import com.johnson.grab.account.Account;
+import com.johnson.grab.account.AccountManager;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/14
- * Time: 11:48
+ * Date: 2014/05/09
+ * Time: 17:32
  */
-public class HttpClientFactory {
+public class Main {
 
-    public static HttpClient getHttpClient() {
-        return HttpClientHolder.getClient();
+    public static void main(String[] args) {
+        // 1. get Account
+        Account[] accounts = AccountManager.getAllAccounts();
+        // 2. make action chain
+        // 3. do action
+        // 4. stats
+        // 5. start next job
     }
 }

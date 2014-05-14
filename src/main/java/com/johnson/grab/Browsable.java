@@ -19,9 +19,11 @@ package com.johnson.grab;
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/03
- * Time: 11:42
+ * Date: 2014/04/14
+ * Time: 17:52
  */
-public interface Browsable {
+public interface Browsable<T> {
+
+    public abstract T get(String url);
 
 }

@@ -15,18 +15,12 @@
  */
 package com.johnson.grab.browser;
 
-import org.apache.http.client.HttpClient;
-
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
  * Date: 2014/04/14
- * Time: 11:48
+ * Time: 16:09
  */
-public class HttpClientFactory {
-
-    public static HttpClient getHttpClient() {
-        return HttpClientHolder.getClient();
-    }
+public class BrowserManager {
 }

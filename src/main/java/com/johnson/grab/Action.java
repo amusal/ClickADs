@@ -15,6 +15,7 @@
  */
 package com.johnson.grab;
 
+
 /**
  * Created by Johnson.Liu
  * <p/>
@@ -22,5 +23,7 @@ package com.johnson.grab;
  * Date: 2014/04/03
  * Time: 11:43
  */
-public class Action {
+public abstract class Action<F, T> {
+
+    public abstract T doAction(F param);
 }

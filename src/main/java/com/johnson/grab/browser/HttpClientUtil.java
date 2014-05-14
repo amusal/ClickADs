@@ -17,6 +17,7 @@ package com.johnson.grab.browser;
 
 import com.johnson.grab.utils.StringUtil;
 import org.apache.http.*;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.RequestConfig;
@@ -41,6 +42,12 @@ public class HttpClientUtil {
 
     private static final int CONNECTION_REQUEST_TIMEOUT = 5 * 60 * 1000;
     private static final int SOCKECT_TIMEOUT = 10 * 60 * 1000;
+
+    private HttpClient client;
+
+    public void setClient(HttpClient client) {
+        this.client = client;
+    }
 
     /**
      * Get content by url as string
@@ -99,6 +106,69 @@ public class HttpClientUtil {
                 }
                 // not found right encoding :)
                 return rawContent;
+            }
+        };
+        // execute
+        CloseableHttpClient client = HttpClientHolder.getClient();
+        return client.execute(request, handler);
+    }
+
+
+    public static Response<String> request(String url) throws CrawlException, IOException {
+        // construct request
+        HttpGet request = new HttpGet(url);
+        request.setConfig(RequestConfig.custom()
+                .setConnectionRequestTimeout(CONNECTION_REQUEST_TIMEOUT)
+                .setSocketTimeout(SOCKECT_TIMEOUT)
+                .build());
+        // construct response handler
+        ResponseHandler<Response<String>> handler = new ResponseHandler<Response<String>>() {
+            @Override
+            public Response<String> handleResponse(final HttpResponse response) throws IOException {
+                Response result = new Response();
+                StatusLine status = response.getStatusLine();
+//                // status
+//                if (status.getStatusCode() != HttpStatus.SC_OK) {
+//                    throw new HttpResponseException(status.getStatusCode(), status.getReasonPhrase());
+//                }
+                result.setStatusCode(status.getStatusCode());
+
+                // get encoding in header
+                String encoding = getPageEncoding(response);
+                boolean encodingFounded = true;
+                if (StringUtil.isEmpty(encoding)) {
+                    encodingFounded = false;
+                    encoding = UniversalConstants.Encoding.ISO_8859_1;
+                }
+                // get content and find real encoding
+                HttpEntity entity = response.getEntity();
+                if (entity == null) {
+                    return null;
+                }
+                // get content
+                byte[] contentBytes = EntityUtils.toByteArray(entity);
+                if (contentBytes == null) {
+                    return null;
+                }
+
+                String rawContent = new String(contentBytes, UniversalConstants.Encoding.DEFAULT);
+                result.setData(rawContent);
+                // found encoding
+                if (encodingFounded) {
+                    result.setData(new String(contentBytes, encoding));
+                } else {
+                    // attempt to discover encoding
+                    Matcher matcher = PATTERN_HTML_CHARSET.matcher(rawContent);
+                    if (matcher.find()) {
+                        String realEncoding = matcher.group(1);
+                        if (!encoding.equalsIgnoreCase(realEncoding)) {
+                            // bad luck :(
+                           result.setData(new String(rawContent.getBytes(encoding), realEncoding));
+                        }
+                    }
+                }
+                // header
+                return result;
             }
         };
         // execute

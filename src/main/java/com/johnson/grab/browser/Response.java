@@ -15,18 +15,49 @@
  */
 package com.johnson.grab.browser;
 
-import org.apache.http.client.HttpClient;
-
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/14
- * Time: 11:48
+ * Date: 2014/05/09
+ * Time: 17:55
  */
-public class HttpClientFactory {
+public class Response<T> {
 
-    public static HttpClient getHttpClient() {
-        return HttpClientHolder.getClient();
+    private T data;
+    private String headers;
+    private String cookies;
+    private int statusCode;
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public String getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(String headers) {
+        this.headers = headers;
+    }
+
+    public String getCookies() {
+        return cookies;
+    }
+
+    public void setCookies(String cookies) {
+        this.cookies = cookies;
+    }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
     }
 }

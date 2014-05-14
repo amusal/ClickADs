@@ -13,20 +13,31 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab.browser;
+package com.johnson.grab.account;
 
-import org.apache.http.client.HttpClient;
+import com.johnson.grab.action.HttpRequestAction;
+import com.johnson.grab.browser.Response;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/14
- * Time: 11:48
+ * Date: 2014/05/09
+ * Time: 18:12
  */
-public class HttpClientFactory {
+public class HttpRequestActionTest {
 
-    public static HttpClient getHttpClient() {
-        return HttpClientHolder.getClient();
+//    private String url = "http://www.hao123.com/?tn=93566780_hao_pg ";
+    private String url = "http://www.hao123.com/?tn=93566780_hao_pg";
+
+    private HttpRequestAction action = new HttpRequestAction();
+
+    @Test
+    public void testDoActionadsfadf() {
+        Response<String> response = action.doAction(url);
+        Assert.assertNotNull(response);
+        Assert.assertNotNull(response.getData());
     }
 }

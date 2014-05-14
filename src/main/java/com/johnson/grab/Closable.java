@@ -19,8 +19,10 @@ package com.johnson.grab;
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/03
- * Time: 11:47
+ * Date: 2014/04/15
+ * Time: 11:46
  */
-public class ActionChain {
+public interface Closable {
+
+    public void close();
 }
