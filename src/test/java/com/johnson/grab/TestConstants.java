@@ -19,8 +19,10 @@ package com.johnson.grab;
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/03
- * Time: 11:43
+ * Date: 2014/05/15
+ * Time: 11:31
  */
-public class DictManager {
+public class TestConstants {
+
+    public static final String KEYWORD_FILE = "classpath: keywords";
 }
