@@ -1,5 +1,6 @@
 package com.johnson.grab.utils;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -69,6 +70,10 @@ public class StringUtil {
             result.append(str).append(separator);
         }
         return result.substring(0, result.length() - separator.length());
+    }
+
+    public static <T> String arrayToString(T[] ts) {
+        return Arrays.asList(ts).toString();
     }
 
     /**

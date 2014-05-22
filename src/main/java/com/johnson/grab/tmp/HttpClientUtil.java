@@ -13,7 +13,7 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab.browser;
+package com.johnson.grab.tmp;
 
 import com.johnson.grab.utils.StringUtil;
 import org.apache.http.*;

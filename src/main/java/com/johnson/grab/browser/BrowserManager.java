@@ -15,6 +15,12 @@
  */
 package com.johnson.grab.browser;
 
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.johnson.grab.account.Account;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Johnson.Liu
  * <p/>
@@ -23,4 +29,32 @@ package com.johnson.grab.browser;
  * Time: 16:09
  */
 public class BrowserManager {
+
+//    public static Browser<HtmlPage> getBrowser(Account account) {
+//        Browser<HtmlPage> browser = holder.pool.get(account);
+//        if (browser == null) {
+//            browser = new HtmlUnitBrowser();
+//            holder.pool.put(account, browser);
+//        }
+//        return browser;
+//    }
+
+    public static Browser<HtmlPage> getBrowser(Account account) {
+        return new HtmlUnitBrowser();
+    }
+
+    public static void close(Account account) {
+        Browser browser = holder.pool.remove(account);
+        if (browser != null) {
+            browser.close();
+        }
+    }
+
+    private static final Holder holder = new Holder();
+
+    private static class Holder {
+        Map<Account, Browser<HtmlPage>> pool = new HashMap<Account, Browser<HtmlPage>>();
+        private Holder() {}
+    }
+
 }

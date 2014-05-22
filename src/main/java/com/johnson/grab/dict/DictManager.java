@@ -33,7 +33,7 @@ import java.util.List;
 public class DictManager {
 
     public static final Holder holder = new Holder();
-    private static final String DEFAULT_KEYWORD_PATH = "classpath: keywords";
+    private static final String DEFAULT_KEYWORD_PATH = "classpath: keywords.txt";
 
     public static final class Holder {
         private Holder() {}
@@ -69,7 +69,7 @@ public class DictManager {
         String text = FileUtil.readFile(file);
         String[] lines = text.split("[\n\r]{1,2}");
         for (String line : lines) {
-            dicts.addAll(Arrays.asList(line.split("\\s+")));
+            dicts.addAll(Arrays.asList(line.split("[,\\s]+")));
         }
         return dicts;
     }

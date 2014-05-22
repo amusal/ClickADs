@@ -15,6 +15,14 @@
  */
 package com.johnson.grab.account;
 
+import com.johnson.grab.utils.FileUtil;
+import com.johnson.grab.utils.NumberUtil;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by Johnson.Liu
  * <p/>
@@ -24,46 +32,56 @@ package com.johnson.grab.account;
  */
 public class AccountManager {
 
+    public static final String ACCOUNT_FILE = "classpath: accounts.txt";
+    public static final Holder holder = new Holder();
+
+    static {
+        try {
+            init();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    private static final class Holder {
+        private Holder() {}
+
+        private final List<Account> accounts = new ArrayList<Account>();
+
+        public int countAccounts() {
+            return accounts.size();
+        }
+
+        public Account[] getAllAccounts() {
+            return accounts.toArray(new Account[0]);
+        }
+    }
+
+    private static void init() throws IOException {
+        String text = FileUtil.readFile(ACCOUNT_FILE);
+        String[] lines = text.split("[\\s]+");
+        Account[] accounts = new Account[lines.length];
+        for (int i=0; i<lines.length; i++) {
+            accounts[i] = new Account(lines[i]);
+        }
+        holder.accounts.addAll(Arrays.asList(accounts));
+    }
+
     /**
      * Return all accounts
      * @return
      */
     public static Account[] getAllAccounts() {
-        return getAvailableAccounts();
+        return holder.getAllAccounts();
     }
 
-    /**
-     * Return all available accounts
-     * @return
-     */
-    public static Account[] getAvailableAccounts() {
-        return new Account[] {new Account("93566780_hao_pg ")};
-    }
-
-    /**
-     * Remove account from account dict
-     * @param account
-     * @return
-     */
-    public static boolean removeAccount(Account account) {
-        return false;
-    }
-
-    /**
-     * If account is abandoned, set it available
-     * @param account
-     * @return
-     */
-    public static boolean setAccountAvailable(Account account) {
-        return false;
-    }
-
-    /**
-     * Add new account to dict
-     * @param account
-     * @return
-     */
-    public static Account addAccount(Account account) {
-        return null;
+    public static Account[] getAllAccountsByRandom() {
+        int[] order = NumberUtil.randomOrderedIntegers(holder.countAccounts());
+        Account[] accounts = new Account[order.length];
+        for (int i=0, len=order.length; i<len; i++) {
+            accounts[i] = holder.accounts.get(order[i]);
+        }
+        return accounts;
     }
 }

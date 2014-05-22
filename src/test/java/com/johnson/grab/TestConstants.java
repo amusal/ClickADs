@@ -15,6 +15,8 @@
  */
 package com.johnson.grab;
 
+import com.johnson.grab.account.Account;
+
 /**
  * Created by Johnson.Liu
  * <p/>
@@ -24,5 +26,9 @@ package com.johnson.grab;
  */
 public class TestConstants {
 
-    public static final String KEYWORD_FILE = "classpath: keywords";
+    public static final String KEYWORD_FILE = "classpath: keywords.txt";
+    public static final String ACCOUNTS_FILE = "classpath: accounts.txt";
+
+    public static final Account DEFAULT_ACCOUNT = new Account("93566780_hao_pg");
+    public static final String DEFAULT_KEYWORD = "皮鞋";
 }

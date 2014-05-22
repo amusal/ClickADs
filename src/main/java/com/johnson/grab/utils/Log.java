@@ -13,17 +13,32 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab;
+package com.johnson.grab.utils;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/14
- * Time: 17:52
+ * Date: 2014/05/18
+ * Time: 18:11
  */
-public interface Browsable<T> {
+public class Log {
 
-    public abstract T get(String url);
+    private static final String FORMAT = "[%s]: %s";
 
+    private static final boolean debug = true;
+
+    public static enum TYPE {
+        SUCCESS, FAIL, INFO;
+    }
+
+    public static void info(TYPE type, String detail) {
+        System.out.println(String.format(FORMAT, type, detail));
+    }
+
+    public static void debug(String detail) {
+        if (debug) {
+            System.out.println("[DEBUG]: " + detail);
+        }
+    }
 }

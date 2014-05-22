@@ -17,6 +17,9 @@ package com.johnson.grab;
 
 import com.johnson.grab.account.Account;
 import com.johnson.grab.account.AccountManager;
+import com.johnson.grab.action.GrabAction;
+import org.apache.commons.logging.LogFactory;
+import org.quartz.SchedulerException;
 
 /**
  * Created by Johnson.Liu
@@ -28,11 +31,15 @@ import com.johnson.grab.account.AccountManager;
 public class Main {
 
     public static void main(String[] args) {
-        // 1. get Account
-        Account[] accounts = AccountManager.getAllAccounts();
-        // 2. make action chain
-        // 3. do action
-        // 4. stats
-        // 5. start next job
+        LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
+        GrabAction grab = new GrabAction();
+        ActionJob job = new ActionJob();
+        job.setAction(grab);
+        job.setDelay(1000);
+        try {
+            job.run();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
     }
 }

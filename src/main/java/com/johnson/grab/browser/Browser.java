@@ -13,14 +13,15 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab;
+package com.johnson.grab.browser;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/03
- * Time: 11:51
+ * Date: 2014/05/15
+ * Time: 16:27
  */
-public interface Searchable {
+public abstract class Browser<T> implements Browsable<T>, Closable {
+    // empty
 }

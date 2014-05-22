@@ -16,6 +16,9 @@
 package com.johnson.grab;
 
 
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.johnson.grab.browser.Browser;
+
 /**
  * Created by Johnson.Liu
  * <p/>
@@ -25,5 +28,68 @@ package com.johnson.grab;
  */
 public abstract class Action<F, T> {
 
-    public abstract T doAction(F param);
+    private Browser<HtmlPage> browser;
+
+    public void setBrowser(Browser<HtmlPage> browser) {
+        this.browser = browser;
+    }
+
+    public Browser<HtmlPage> getBrowser() {
+        return browser;
+    }
+
+    public abstract class Handler {
+
+        private Action action;
+
+        public Action getAction() {
+            return action;
+        }
+
+        public void setAction(Action action) {
+            this.action = action;
+        }
+
+        public abstract void handle(T t);
+    }
+
+    private Handler handler;
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+        handler.setAction(this);
+    }
+
+    public Handler getHandler() {
+        return handler;
+    }
+
+    private F feed;
+
+    public void setFeed(F feed) {
+        this.feed = feed;
+    }
+
+    public F getFeed() {
+        return feed;
+    }
+
+    protected abstract T doAction();
+
+    public void run() {
+        T t = doAction();
+        if (handler != null) {
+            handler.handle(t);
+        }
+    }
+
+    @Override
+    public String toString() {
+        String name = this.getClass().getSimpleName();
+        int idx = name.indexOf("Action");
+        if (idx == -1) {
+            return name;
+        }
+        return name.substring(0, idx);
+    }
 }

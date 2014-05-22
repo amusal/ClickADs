@@ -56,7 +56,7 @@ public class FileUtilTest {
     @Test
     public void testReadFileByClassPath() {
         try {
-            String text = FileUtil.readFileByClassPath("keywords");
+            String text = FileUtil.readFileByClassPath("keywords.txt");
             System.out.println(text);
             Assert.assertNotNull(text);
             Assert.assertTrue(text.length() > 0);
@@ -68,7 +68,7 @@ public class FileUtilTest {
 
     @Test
     public void testReadFile() {
-        String fileName = FileUtil.CLASSPATH_PREFIX + "   keywords";
+        String fileName = FileUtil.CLASSPATH_PREFIX + "keywords.txt";
         try {
             String text = FileUtil.readFile(fileName);
             System.out.println("text: " + text);

@@ -48,7 +48,7 @@ public class DictManagerTest {
             String[] keywords = DictManager.randomKeywords(i + 1);
             Assert.assertNotNull(keywords);
             Assert.assertEquals(i+1, keywords.length);
-//            for (String keyword : keywords) {
+//            for (String keyword : keywords.txt) {
 //                System.out.print(keyword + '\b');
 //            }
 //            System.out.println();

@@ -13,17 +13,26 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab.action;
+package com.johnson.grab.tmp;
+
+import com.johnson.grab.browser.Browsable;
+import org.apache.http.HttpHost;
+import org.apache.http.client.HttpClient;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/05/09
- * Time: 18:30
+ * Date: 2014/04/03
+ * Time: 11:53
  */
-public class GrabBaiduAction extends HttpRequestAction {
+public abstract class BasicHttpClientBrowser implements Browsable<Object> {
 
-    private static final String URL_HAO123 = "http://www.hao123.com/?tn=93566780_hao_pg";
-    private static final String URL_BAIDU = "";
+    private HttpClient client;
+
+    private HttpHost proxy;
+
+    public BasicHttpClientBrowser(HttpClient client) {
+        this.client = client;
+    }
 }
