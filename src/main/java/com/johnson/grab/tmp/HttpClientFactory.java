@@ -13,14 +13,20 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab;
+package com.johnson.grab.tmp;
+
+import org.apache.http.client.HttpClient;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/03
- * Time: 11:47
+ * Date: 2014/04/14
+ * Time: 11:48
  */
-public interface ActionContext {
+public class HttpClientFactory {
+
+    public static HttpClient getHttpClient() {
+        return HttpClientHolder.getClient();
+    }
 }

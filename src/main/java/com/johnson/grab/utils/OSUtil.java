@@ -13,14 +13,27 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab.browser;
+package com.johnson.grab.utils;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/03
- * Time: 11:53
+ * Date: 2014/05/15
+ * Time: 09:37
  */
-public class BasicBrowser {
+public class OSUtil {
+
+    public static enum OS {
+        WINDOWS, LINUX;
+    }
+
+    public static OS getOS() {
+        String osname = System.getProperties().getProperty("os.name");
+        if (osname.startsWith("Windows")) {
+            return OS.WINDOWS;
+        } else {
+            return OS.LINUX;
+        }
+    }
 }

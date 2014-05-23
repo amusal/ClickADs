@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Future TV, Inc.
+ * Copyright 2013 Future TV, Inc.
  *
  *      Licensed under the Apache License, Version 2.0 (the "License");
  *      you may not use this file except in compliance with the License.
@@ -13,15 +13,24 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab;
+package com.johnson.grab.tmp;
 
 /**
  * Created by Johnson.Liu
+ *
+ * This class defines a crawling exception
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/03
- * Time: 11:42
+ * Date: 2013/10/22
+ * Time: 19:20
  */
-public interface Browsable {
+public class CrawlException extends Exception {
 
+    public CrawlException(String message) {
+        super(message);
+    }
+
+    public CrawlException(String message, Throwable t) {
+        super(message, t);
+    }
 }

@@ -13,14 +13,26 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab;
+package com.johnson.grab.tmp;
+
+import com.johnson.grab.browser.Browsable;
+import org.apache.http.HttpHost;
+import org.apache.http.client.HttpClient;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
  * Date: 2014/04/03
- * Time: 11:51
+ * Time: 11:53
  */
-public interface Searchable {
+public abstract class BasicHttpClientBrowser implements Browsable<Object> {
+
+    private HttpClient client;
+
+    private HttpHost proxy;
+
+    public BasicHttpClientBrowser(HttpClient client) {
+        this.client = client;
+    }
 }

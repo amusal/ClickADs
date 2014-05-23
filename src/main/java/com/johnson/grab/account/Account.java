@@ -27,17 +27,22 @@ public class Account {
     /**
      * Account id
      */
-    private String aid;
+    private String name;
 
-    public String getAid() {
-        return aid;
+    public Account(String name) {
+        this.name = name;
     }
 
-    public void setAid(String aid) {
-        this.aid = aid;
+    public String getName() {
+        return name;
     }
 
-    public Account(String aid) {
-        this.aid = aid;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -13,14 +13,34 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab;
+package com.johnson.grab.utils;
+
+import java.util.Date;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/03
- * Time: 11:43
+ * Date: 2014/05/18
+ * Time: 18:11
  */
-public class DictManager {
+public class Log {
+
+    private static final String FORMAT = "[%s] %s %s";
+
+    private static final boolean debug = true;
+
+    public static enum TYPE {
+        SUCCESS, FAIL, INFO;
+    }
+
+    public static void info(TYPE type, String detail) {
+        System.out.println(String.format(FORMAT, type, StringUtil.formatDate(new Date()), detail));
+    }
+
+    public static void debug(String detail) {
+        if (debug) {
+            System.out.println(String.format(FORMAT, "DEBUG", StringUtil.formatDate(new Date()), detail));
+        }
+    }
 }

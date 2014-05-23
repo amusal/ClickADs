@@ -13,17 +13,18 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab;
+package com.johnson.grab.browser;
+
+import java.io.IOException;
 
 /**
  * Created by Johnson.Liu
- *
- * Has record feature
- *
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/03
- * Time: 11:44
+ * Date: 2014/04/14
+ * Time: 17:52
  */
-public interface Recordable {
+public interface Browsable<T> {
+
+    public T get(String url) throws IOException;
 }

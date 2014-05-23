@@ -30,8 +30,25 @@ public class AccountManagerTest {
 
     @Test
     public void testGetAvailableAccouts() {
-        Account[] accounts = AccountManager.getAvailableAccounts();
+        Account[] accounts = AccountManager.getAllAccounts();
         Assert.assertNotNull(accounts);
         Assert.assertTrue("Account length should great than 0", accounts.length > 0);
+    }
+
+    @Test
+    public void testGetAccountsByRandom() {
+        for (int i=0; i<10; i++) {
+            Account[] accounts = AccountManager.getAllAccountsByRandom();
+            Assert.assertNotNull(accounts);
+            Assert.assertTrue(accounts.length > 0);
+            printAccounts(accounts);
+        }
+    }
+
+    private void printAccounts(Account[] accounts) {
+        for (Account account : accounts) {
+            System.out.print(account + "; ");
+        }
+        System.out.println();
     }
 }

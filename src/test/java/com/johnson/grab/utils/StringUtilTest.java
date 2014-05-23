@@ -13,20 +13,28 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab.browser;
+package com.johnson.grab.utils;
 
-import org.apache.http.client.HttpClient;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/04/14
- * Time: 11:48
+ * Date: 2014/05/22
+ * Time: 23:47
  */
-public class HttpClientFactory {
+public class StringUtilTest {
 
-    public static HttpClient newHttpClient() {
-        return null;
+    @Test
+    public void testFormatDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2012, 8, 23, 12, 40, 35);
+        String dateStr = StringUtil.formatDate(calendar.getTime());
+        Assert.assertTrue("2012-09-23 12:40:35".equals(dateStr));
     }
 }

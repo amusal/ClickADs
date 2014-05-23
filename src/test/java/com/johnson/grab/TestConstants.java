@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Future TV, Inc.
+ * Copyright 2014 Future TV, Inc.
  *
  *      Licensed under the Apache License, Version 2.0 (the "License");
  *      you may not use this file except in compliance with the License.
@@ -13,28 +13,22 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.johnson.grab.browser;
+package com.johnson.grab;
+
+import com.johnson.grab.account.Account;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2013/10/09
- * Time: 14:51
+ * Date: 2014/05/15
+ * Time: 11:31
  */
-public class UniversalConstants {
+public class TestConstants {
 
-    /**
-     * Default string splitter
-     */
-    public static final String DEFAULT_STRING_SPLITTER = "|";
+    public static final String KEYWORD_FILE = "classpath: keywords.txt";
+    public static final String ACCOUNTS_FILE = "classpath: accounts.txt";
 
-    /**
-     * Define all of used encodings
-     */
-    public static class Encoding {
-        public static final String UTF8 = "utf-8";
-        public static final String DEFAULT = UTF8;
-        public static final String ISO_8859_1 = "iso-8859-1";
-    }
+    public static final Account DEFAULT_ACCOUNT = new Account("93566780_hao_pg");
+    public static final String DEFAULT_KEYWORD = "皮鞋";
 }
