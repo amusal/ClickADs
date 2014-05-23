@@ -1,6 +1,9 @@
 package com.johnson.grab.utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -98,5 +101,11 @@ public class StringUtil {
             }
         }
         return result.toString();
+    }
+
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    public static String formatDate(Date date) {
+        return DATE_FORMAT.format(date);
     }
 }

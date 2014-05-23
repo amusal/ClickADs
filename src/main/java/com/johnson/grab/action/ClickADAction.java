@@ -19,7 +19,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.johnson.grab.Action;
 import com.johnson.grab.utils.Log;
-import com.johnson.grab.utils.NumberUtil;
+import com.johnson.grab.utils.RandomUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -63,21 +63,20 @@ public class ClickADAction extends Action<HtmlPage, HtmlPage[]> {
         for (HtmlAnchor link : links) {
             String id = link.getId();
             if (!map.containsKey(id)) {
+                String toClickLog = "准备点击广告：%s\\n关键词：%s\\n链接：%s";
+                String adTitle = link.asText();
+                String adUrl = link.getHrefAttribute();
                 try {
-                    String toClickLog = "准备点击广告：%s\\n关键词：%s\\n链接：%s";
-                    String adTitle = link.asText();
-                    String adUrl = link.getHrefAttribute();
                     Log.info(Log.TYPE.INFO, String.format(toClickLog, adTitle, keyword, adUrl));
                     HtmlPage page = link.click();
                     page.initialize();
                     map.put(id, page);
-                    int sleep = NumberUtil.randomInteger(3, 8) * 1000;
+                    int sleep = RandomUtil.randomInteger(3, 8) * 1000;
                     Log.info(Log.TYPE.SUCCESS, "点击广告完毕:" + adTitle + ", 随机休息 " + sleep + "ms");
                     Thread.sleep(sleep);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    Log.info(Log.TYPE.FAIL, "点击广告失败:" + adTitle);
+//                    e.printStackTrace();
                 }
             }
         }

@@ -24,7 +24,7 @@ import java.util.*;
  * Date: 2014/05/15
  * Time: 13:46
  */
-public class NumberUtil {
+public class RandomUtil {
 
     private static final Random rand = new Random();
 
@@ -59,5 +59,20 @@ public class NumberUtil {
             orders[i] = select + offset;
         }
         return orders;
+    }
+
+    private static final int PRECISION = 3;
+
+    public static boolean randomBoolean(float trueRatio) {
+        if (trueRatio >= 1.0) {
+            return true;
+        }
+        if (trueRatio <= 0) {
+            return false;
+        }
+        int top = (int) Math.pow(10.0, PRECISION);
+        int trueLevel = (int) (top * trueRatio);
+        int randomNumber = randomInteger(top);
+        return randomNumber < trueLevel;
     }
 }

@@ -15,32 +15,26 @@
  */
 package com.johnson.grab.utils;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Created by Johnson.Liu
  * <p/>
  * Author: Johnson.Liu
- * Date: 2014/05/18
- * Time: 18:11
+ * Date: 2014/05/22
+ * Time: 23:47
  */
-public class Log {
+public class StringUtilTest {
 
-    private static final String FORMAT = "[%s] %s %s";
-
-    private static final boolean debug = true;
-
-    public static enum TYPE {
-        SUCCESS, FAIL, INFO;
-    }
-
-    public static void info(TYPE type, String detail) {
-        System.out.println(String.format(FORMAT, type, StringUtil.formatDate(new Date()), detail));
-    }
-
-    public static void debug(String detail) {
-        if (debug) {
-            System.out.println(String.format(FORMAT, "DEBUG", StringUtil.formatDate(new Date()), detail));
-        }
+    @Test
+    public void testFormatDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2012, 8, 23, 12, 40, 35);
+        String dateStr = StringUtil.formatDate(calendar.getTime());
+        Assert.assertTrue("2012-09-23 12:40:35".equals(dateStr));
     }
 }

@@ -22,7 +22,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.johnson.grab.Action;
 import com.johnson.grab.ActionJob;
 import com.johnson.grab.utils.Log;
-import com.johnson.grab.utils.NumberUtil;
+import com.johnson.grab.utils.RandomUtil;
 import com.johnson.grab.utils.StringUtil;
 import org.quartz.SchedulerException;
 
@@ -62,7 +62,7 @@ public class SearchBaiduAction extends Action<HtmlPage, HtmlPage> {
                     clickAD.setKeyword(keyword);
                     ActionJob job = new ActionJob();
                     job.setAction(clickAD);
-                    job.setDelay(NumberUtil.randomInteger(3, 12) * 1000);
+                    job.setDelay(RandomUtil.randomInteger(3, 12) * 1000);
                     try {
                         job.run();
                     } catch (SchedulerException e) {
@@ -85,17 +85,20 @@ public class SearchBaiduAction extends Action<HtmlPage, HtmlPage> {
             String action = form.getAttribute("action");
             if (URL_BAIDU.equalsIgnoreCase(action)) {
                 Log.info(Log.TYPE.INFO, "已定位百度搜索框");
-                HtmlInput word = form.getInputByName("word");
-                word.setValueAttribute(keyword);
-                HtmlSubmitInput commit = form.getInputByValue("百度一下");
                 try {
-                    HtmlPage baidu = commit.click();
+                    HtmlPage baidu;
+                    synchronized (getFeed()) {
+                        HtmlInput word = form.getInputByName("word");
+                        word.setValueAttribute(keyword);
+                        HtmlSubmitInput commit = form.getInputByValue("百度一下");
+                        baidu = commit.click();
+                    }
                     baidu.initialize();
                     Log.info(Log.TYPE.SUCCESS, "搜索页面已打开，当前关键词:" + keyword);
                     return baidu;
                 } catch (IOException e) {
                     Log.info(Log.TYPE.FAIL, "搜索页面打开失败");
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
             }
         }

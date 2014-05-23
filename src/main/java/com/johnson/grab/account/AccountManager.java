@@ -16,11 +16,11 @@
 package com.johnson.grab.account;
 
 import com.johnson.grab.utils.FileUtil;
-import com.johnson.grab.utils.NumberUtil;
+import com.johnson.grab.utils.Log;
+import com.johnson.grab.utils.RandomUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -61,11 +61,12 @@ public class AccountManager {
     private static void init() throws IOException {
         String text = FileUtil.readFile(ACCOUNT_FILE);
         String[] lines = text.split("[\\s]+");
-        Account[] accounts = new Account[lines.length];
         for (int i=0; i<lines.length; i++) {
-            accounts[i] = new Account(lines[i]);
+            if (!lines[i].startsWith("#")) {
+                holder.accounts.add(new Account(lines[i]));
+            }
         }
-        holder.accounts.addAll(Arrays.asList(accounts));
+        Log.debug("账号加载完毕，共加载账号" + holder.accounts.size() + "个");
     }
 
     /**
@@ -77,7 +78,7 @@ public class AccountManager {
     }
 
     public static Account[] getAllAccountsByRandom() {
-        int[] order = NumberUtil.randomOrderedIntegers(holder.countAccounts());
+        int[] order = RandomUtil.randomOrderedIntegers(holder.countAccounts());
         Account[] accounts = new Account[order.length];
         for (int i=0, len=order.length; i<len; i++) {
             accounts[i] = holder.accounts.get(order[i]);

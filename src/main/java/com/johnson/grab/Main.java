@@ -18,6 +18,8 @@ package com.johnson.grab;
 import com.johnson.grab.account.Account;
 import com.johnson.grab.account.AccountManager;
 import com.johnson.grab.action.GrabAction;
+import com.johnson.grab.job.QuartzManager;
+import com.johnson.grab.utils.Log;
 import org.apache.commons.logging.LogFactory;
 import org.quartz.SchedulerException;
 
@@ -31,7 +33,9 @@ import org.quartz.SchedulerException;
 public class Main {
 
     public static void main(String[] args) {
+        // close log
         LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
+        Log.info(Log.TYPE.INFO, "程序启动");
         GrabAction grab = new GrabAction();
         ActionJob job = new ActionJob();
         job.setAction(grab);
@@ -41,5 +45,20 @@ public class Main {
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
+        try {
+            boolean isTerminate;
+            do {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                isTerminate = QuartzManager.isTerminate();
+            }
+            while (!isTerminate);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+        Log.info(Log.TYPE.INFO, "程序运行完毕，自动退出");
     }
 }

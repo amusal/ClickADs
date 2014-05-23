@@ -19,10 +19,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.johnson.grab.Action;
 import com.johnson.grab.ActionJob;
 import com.johnson.grab.account.Account;
-import com.johnson.grab.browser.Browser;
 import com.johnson.grab.dict.DictManager;
 import com.johnson.grab.utils.Log;
-import com.johnson.grab.utils.NumberUtil;
+import com.johnson.grab.utils.RandomUtil;
 import org.quartz.SchedulerException;
 
 import java.io.IOException;
@@ -37,6 +36,7 @@ import java.io.IOException;
 public class GetHao123Action extends Action<Account, HtmlPage> {
 
     private static final String URL_HAO123 = "http://www.hao123.com/?tn=%s";
+    private static final float CLICK_RATIO = 0.666F;
 
     private int keywordNum;
 
@@ -44,23 +44,27 @@ public class GetHao123Action extends Action<Account, HtmlPage> {
         this.keywordNum = keywordNum;
     }
 
+
+
     public GetHao123Action() {
         this.setHandler(new Handler() {
             @Override
             public void handle(HtmlPage htmlPage) {
                 int keywordNum = ((GetHao123Action) getAction()).keywordNum;
                 if (keywordNum == 0) {
-                    keywordNum = NumberUtil.randomInteger(15, 30);
+                    keywordNum = RandomUtil.randomInteger(15, 30);
                 }
                 String[] keywords = DictManager.randomKeywords(keywordNum);
                 Log.info(Log.TYPE.INFO, "随机加载关键词" + keywords.length + "个");
-                int succNum, failNum;
-                int addedDelayTime = NumberUtil.randomInteger(8, 18) * 1000;
+                int addedDelayTime = RandomUtil.randomInteger(8, 18) * 1000;
                 for (String keyword : keywords) {
                     // create search action
                     SearchBaiduAction baidu = new SearchBaiduAction();
                     baidu.setFeed(htmlPage);
                     baidu.setKeyword(keyword);
+                    boolean toClick = RandomUtil.randomBoolean(CLICK_RATIO);
+                    baidu.setToClickAD(toClick);
+
                     // create job to run action
                     ActionJob job = new ActionJob();
                     job.setAction(baidu);
@@ -69,10 +73,16 @@ public class GetHao123Action extends Action<Account, HtmlPage> {
                         job.run();
                         Log.info(Log.TYPE.INFO, addedDelayTime + "ms后搜索关键词:" + keyword);
                     } catch (SchedulerException e) {
-                        e.printStackTrace();
+//                        e.printStackTrace();
                         Log.info(Log.TYPE.FAIL, "添加搜索任务时失败，目标关键词:" + keyword);
                     }
-                    int delay = NumberUtil.randomInteger(10, 20) * 1000;
+
+                    int delay;
+                    if (toClick) {
+                        delay = RandomUtil.randomInteger(10, 20) * 1000;
+                    } else {
+                        delay = RandomUtil.randomInteger(3, 5) * 1000;
+                    }
                     addedDelayTime += delay;
                 }
             }

@@ -28,12 +28,12 @@ import java.util.Set;
  * Date: 2014/05/15
  * Time: 13:54
  */
-public class NumberUtilTest {
+public class RandomUtilTest {
     @Test
     public void testRandomInteger() {
         int begin = 5, end = 10;
         for (int i=0; i<100; i++) {
-            int random = NumberUtil.randomInteger(begin, end);
+            int random = RandomUtil.randomInteger(begin, end);
             Assert.assertTrue(random >= begin && random < end);
         }
     }
@@ -41,7 +41,7 @@ public class NumberUtilTest {
     @Test
     public void testRandomOrderedIntegers() {
         int begin=20, end=300, size = 11;
-        int[] orders = NumberUtil.randomOrderedIntegers(begin, end, size);
+        int[] orders = RandomUtil.randomOrderedIntegers(begin, end, size);
         Assert.assertNotNull(orders);
         Set<Integer> cache = new HashSet<Integer>();
         for (int i=0; i<orders.length; i++) {
@@ -50,5 +50,19 @@ public class NumberUtilTest {
             Assert.assertTrue(cache.add(orders[i]));
         }
         System.out.println();
+    }
+
+    @Test
+    public void testRandomBoolean() {
+        float ratio = 0.157f;
+        int trueCount=0, base=10000;
+        for (int i=0; i<base; i++) {
+            boolean random = RandomUtil.randomBoolean(ratio);
+            if (random) {
+                trueCount++;
+            }
+        }
+        float realRation = ((float) trueCount) / ((float) base);
+        System.out.println("targetRatio: " + ratio + ", realRatio: " + realRation);
     }
 }

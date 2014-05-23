@@ -21,7 +21,7 @@ import com.johnson.grab.account.Account;
 import com.johnson.grab.account.AccountManager;
 import com.johnson.grab.browser.BrowserManager;
 import com.johnson.grab.utils.Log;
-import com.johnson.grab.utils.NumberUtil;
+import com.johnson.grab.utils.RandomUtil;
 import com.johnson.grab.utils.StringUtil;
 import org.quartz.SchedulerException;
 
@@ -51,7 +51,7 @@ public class GrabAction extends Action<Object, Account[]> {
                     // Action
                     GetHao123Action hao123 = new GetHao123Action();
                     hao123.setFeed(account);
-                    int keywordNum = NumberUtil.randomInteger(10, 22);
+                    int keywordNum = RandomUtil.randomInteger(20, 40);
                     hao123.setKeywordNum(keywordNum);
                     hao123.setBrowser(BrowserManager.getBrowser(account));
                     // Job
@@ -65,7 +65,7 @@ public class GrabAction extends Action<Object, Account[]> {
                         e.printStackTrace();
                     }
                     try {
-                        Thread.sleep(NumberUtil.randomInteger(420, 600) * 1000L);
+                        Thread.sleep(RandomUtil.randomInteger(12, 20) * 60 * 1000L);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

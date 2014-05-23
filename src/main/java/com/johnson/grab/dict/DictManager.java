@@ -16,7 +16,7 @@
 package com.johnson.grab.dict;
 
 import com.johnson.grab.utils.FileUtil;
-import com.johnson.grab.utils.NumberUtil;
+import com.johnson.grab.utils.RandomUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -77,7 +77,7 @@ public class DictManager {
     public static String[] randomKeywords(int size) {
         int total = holder.dicts.size();
         int generateSize = Math.min(size, total);
-        int[] orders = NumberUtil.randomOrderedIntegers(0, total, generateSize);
+        int[] orders = RandomUtil.randomOrderedIntegers(0, total, generateSize);
         String[] keywords = new String[orders.length];
         for (int i=0, len=orders.length; i<len; i++) {
             keywords[i] = holder.dicts.get(orders[i]);
